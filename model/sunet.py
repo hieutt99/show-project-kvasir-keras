@@ -135,9 +135,9 @@ def unet_module(X, in_f, out_f, n_levels):
 def SUNet(image_size = (256,256,3), name = "SUNet model"):
 	X_input = Input(image_size)
 
-	l = unet_module(X_input, 32, 32,1)
-	l = unet_module(l, 32, 32, 2)
-	l = unet_module(l, 32, 32, 4)
+	l = unet_module(X_input, 16, 16,1)
+	l = unet_module(l, 16, 16, 2)
+	l = unet_module(l, 16, 16, 2)
 
 	l = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l)
 	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l)
