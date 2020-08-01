@@ -54,7 +54,8 @@ test_masks_folder = './test/'
 val_images_folder = './val/'
 val_masks_folder = './val/'
 # ================================================================================
-model_save_path = './resunetpp_colab_1.h5'
+# model_save_path = './resunetpp_colab_1.h5'
+model_save_path = './sunet_colab_1.h5'
 # ================================================================================
 parser = argparse.ArgumentParser()
 
