@@ -132,17 +132,41 @@ def unet_module(X, in_f, out_f, n_levels):
 	output = Conv2D(filters = out_f, kernel_size = 1, strides = 1)(dec) 
 	return output
 
+# def SUNet(image_size = (256,256,3), name = "SUNet model"):
+# 	X_input = Input(image_size)
+
+# 	l = unet_module(X_input, 16, 16,1)
+# 	l = unet_module(l, 16, 16, 2)
+# 	l = unet_module(l, 16, 16, 1)
+
+# 	l = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l)
+# 	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l)
+
+# 	model = Model(X_input, X_output, name = name)
+# 	model.summary()
+
+# 	return model
+
+
 def SUNet(image_size = (256,256,3), name = "SUNet model"):
+	# deep supervision
+
 	X_input = Input(image_size)
 
-	l = unet_module(X_input, 16, 16,1)
-	l = unet_module(l, 16, 16, 2)
-	l = unet_module(l, 16, 16, 1)
+	l1 = unet_module(X_input, 16, 16,0)
+	l2 = unet_module(l1, 16, 16, 1)
+	l3 = unet_module(l2, 16, 16, 2)
 
-	l = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l)
-	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l)
+	l4 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l3)
+	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l4)
 
-	model = Model(X_input, X_output, name = name)
+	out_1 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l1)
+	out_1 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(out_1)
+
+	out_2 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l2)
+	out_2 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(out_2)
+
+	model = Model(X_input, [X_output, out_2, out_1], name = name)
 	model.summary()
 
 	return model

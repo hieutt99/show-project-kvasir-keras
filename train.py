@@ -1,5 +1,6 @@
 __author__ = "Tran Trung Hieu"
-__modelName__ = "SUNet_model_xxx"
+# __modelName__ = "SUNet_model_xxx"
+__modelName__ = "SUNet_DSPVS_model_xxx"
 # ========================================================================
 from model.resunet import *
 from model.unet import * 
@@ -55,7 +56,7 @@ val_images_folder = './val/'
 val_masks_folder = './val/'
 # ================================================================================
 # model_save_path = './resunetpp_colab_1.h5'
-model_save_path = './sunet_colab_1.h5'
+model_save_path = './sunet_colab_dspvs_2.h5'
 # ================================================================================
 parser = argparse.ArgumentParser()
 
@@ -120,8 +121,13 @@ def main():
 	print("============================================================")
 	# resunet = ResUNet((img_h,img_w, 3),name = __modelName__)
 	# model = UNet((img_h,img_w, 3),name = __modelName__)
-	model = SUNet((img_h, img_w, 3), name = __modelName__)
-	model.compile(optimizer = initOptimizer(), loss = DiceLoss,\
+	 model = SUNet((img_h, img_w, 3), name = __modelName__)
+	
+	# model.compile(optimizer = initOptimizer(), loss = DiceLoss,\
+	# 	metrics = [tversky, dice_coefficient, iou, precision, recall, accuracy, true_positive, false_negative, false_positive])
+	
+	# deep supervision
+	model.compile(optimizer = initOptimizer(), loss = [DiceLoss, DiceLoss, DiceLoss],\
 		metrics = [tversky, dice_coefficient, iou, precision, recall, accuracy, true_positive, false_negative, false_positive])
 	
 	if os.path.exists(model_save_path):
