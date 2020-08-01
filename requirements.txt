@@ -1,0 +1,4 @@
+tensorflow
+scipy==1.4.1
+opencv-python
+matplotlib
