@@ -89,6 +89,7 @@ def SUNet(image_size = (256,256,3), name = "SUNet model"):
 	l20 = BatchNormalization()(l17)
 	
 	output = AveragePooling2D(pool_size=(7,7), strides = 1)(l20)
+	print(output.shape)
 	X_output = Conv2D(1, 1, strides = 1, activation='sigmoid')(output)
 
 	model = Model(X_input, X_output, name = name)
