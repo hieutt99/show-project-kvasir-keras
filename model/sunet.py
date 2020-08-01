@@ -80,28 +80,54 @@ def residual_block(X, filters, kernel_size, padding = 'same', strides = 1):
 	output = Add()([shortcut, a])
 	return output
 
-def unet_module(X, in_f, out_f):
+# def unet_module(X, in_f, out_f):
+# 	l1 = conv_block(X, filters = in_f, kernel_size=1, strides = 1)
+	
+# 	down1 = double_conv_block(l1, 64, 3)
+	
+# 	down2 = Down(down1, 128, 3)
+	
+# 	down3 = Down(down2, 256, 3)
+
+# 	down4 = Down(down3, 512, 3)
+
+# 	# bottom = Down(down4, 1024, 3)
+
+# 	# decoder
+# 	# dec = Up(bottom, down4, 512, 3)
+
+# 	dec = Up(down4, down3, 256, 3)
+# 	# dec = Up(dec, down3, 256, 3)
+
+# 	dec = Up(dec, down2, 128, 3)
+
+# 	dec = Up(dec, down1, 64, 3)
+
+# 	output = Conv2D(filters = out_f, kernel_size = 1, strides = 1)(dec) 
+# 	return output
+def unet_module(X, in_f, out_f, n_levels):
 	l1 = conv_block(X, filters = in_f, kernel_size=1, strides = 1)
 	
 	down1 = double_conv_block(l1, 64, 3)
+
+	down_list = [down1]
 	
-	down2 = Down(down1, 128, 3)
-	
-	down3 = Down(down2, 256, 3)
-
-	down4 = Down(down3, 512, 3)
-
-	# bottom = Down(down4, 1024, 3)
-
+	k = 64
+	for i in range(n_levels):
+		k = k*2
+		temp = Down(down_list[-1], k, 3)
+		down_list.append(temp)
+	# bottom
+	k = k*2
+	bottom = Down(down_list[-1], k, 3)
 	# decoder
-	# dec = Up(bottom, down4, 512, 3)
-
-	dec = Up(down4, down3, 256, 3)
-	# dec = Up(dec, down3, 256, 3)
-
-	dec = Up(dec, down2, 128, 3)
-
-	dec = Up(dec, down1, 64, 3)
+	k = k//2
+	temp = down_list.pop(-1)
+	dec = Up(bottom, temp, k, 3)
+	for i in range(n_levels):
+		k = k//2
+		temp = down_list.pop(-1)
+		dec = Up(dec, temp, k, 3)
 
 	output = Conv2D(filters = out_f, kernel_size = 1, strides = 1)(dec) 
 	return output
@@ -109,10 +135,10 @@ def unet_module(X, in_f, out_f):
 def SUNet(image_size = (256,256,3), name = "SUNet model"):
 	X_input = Input(image_size)
 
-	l = unet_module(X_input, 64, 256)
-	l = unet_module(l, 64, 64)
-	l = unet_module(l, 64, 64)
-	l = unet_module(l, 64, 64)
+	l = unet_module(X_input, 64, 256,4)
+	l = unet_module(l, 64, 64, 4)
+	l = unet_module(l, 64, 64, 4)
+	l = unet_module(l, 64, 64, 3)
 
 	l = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l)
 	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l)
