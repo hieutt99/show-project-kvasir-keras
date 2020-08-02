@@ -136,13 +136,13 @@ def SUNet(image_size = (256,256,3), name = "SUNet model"):
 	l3 = unet_module(l2, 16, 16, 2)
 
 	l4 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l3)
-	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(l4)
+	X_output = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid', name = "X_output")(l4)
 
 	out_1 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l1)
-	out_1 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(out_1)
+	out_1 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid', name = "out_1")(out_1)
 
 	out_2 = Conv2D(filters = 2, kernel_size = 3, activation = 'relu', padding = 'same')(l2)
-	out_2 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid')(out_2)
+	out_2 = Conv2D(filters = 1, kernel_size = 1, activation = 'sigmoid', name = "out_2")(out_2)
 
 	model = Model(X_input, [X_output, out_2, out_1], name = name)
 	model.summary()
