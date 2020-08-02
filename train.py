@@ -137,7 +137,7 @@ def main():
 	return model
 def eval(model, train_generator, val_generator, test_generator):
 	model_evaluate(model, train_generator, val_generator, test_generator, \
-    batch_size = 8, train_size = 800, val_size = 100, test_size = 1s00)
+    batch_size = 8, train_size = 800, val_size = 100, test_size = 100)
 	testSetReveal(model, test_generator)
 
 if __name__ == "__main__":
