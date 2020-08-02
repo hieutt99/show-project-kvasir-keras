@@ -80,31 +80,6 @@ def residual_block(X, filters, kernel_size, padding = 'same', strides = 1):
 	output = Add()([shortcut, a])
 	return output
 
-# def unet_module(X, in_f, out_f):
-# 	l1 = conv_block(X, filters = in_f, kernel_size=1, strides = 1)
-	
-# 	down1 = double_conv_block(l1, 64, 3)
-	
-# 	down2 = Down(down1, 128, 3)
-	
-# 	down3 = Down(down2, 256, 3)
-
-# 	down4 = Down(down3, 512, 3)
-
-# 	# bottom = Down(down4, 1024, 3)
-
-# 	# decoder
-# 	# dec = Up(bottom, down4, 512, 3)
-
-# 	dec = Up(down4, down3, 256, 3)
-# 	# dec = Up(dec, down3, 256, 3)
-
-# 	dec = Up(dec, down2, 128, 3)
-
-# 	dec = Up(dec, down1, 64, 3)
-
-# 	output = Conv2D(filters = out_f, kernel_size = 1, strides = 1)(dec) 
-# 	return output
 def unet_module(X, in_f, out_f, n_levels):
 	l1 = conv_block(X, filters = in_f, kernel_size=1, strides = 1)
 	
@@ -131,6 +106,9 @@ def unet_module(X, in_f, out_f, n_levels):
 
 	output = Conv2D(filters = out_f, kernel_size = 1, strides = 1)(dec) 
 	return output
+
+
+## mah original prototype
 
 # def SUNet(image_size = (256,256,3), name = "SUNet model"):
 # 	X_input = Input(image_size)
