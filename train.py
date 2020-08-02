@@ -121,7 +121,7 @@ def main():
 	print("============================================================")
 	# resunet = ResUNet((img_h,img_w, 3),name = __modelName__)
 	# model = UNet((img_h,img_w, 3),name = __modelName__)
-	 model = SUNet((img_h, img_w, 3), name = __modelName__)
+	model = SUNet((img_h, img_w, 3), name = __modelName__)
 	
 	# model.compile(optimizer = initOptimizer(), loss = DiceLoss,\
 	# 	metrics = [tversky, dice_coefficient, iou, precision, recall, accuracy, true_positive, false_negative, false_positive])
@@ -137,7 +137,7 @@ def main():
 	return model
 def eval(model, train_generator, val_generator, test_generator):
 	model_evaluate(model, train_generator, val_generator, test_generator, \
-    batch_size = 8, train_size = 800, val_size = 100, test_size = 100)
+    batch_size = 8, train_size = 800, val_size = 100, test_size = 1s00)
 	testSetReveal(model, test_generator)
 
 if __name__ == "__main__":
