@@ -75,7 +75,7 @@ def testSetReveal(model, test_generator):
 
 	plt.subplot(1,3,3)
 	arr_pred = model.predict(test_x)
-	if arr_pred isinstance list:
+	if isinstance(arr_pred, list):
 		arr_pred = arr_pred[0]
 	tmp = (arr_pred[0]*255)
 	img_pred = np.dstack((tmp,tmp,tmp)).astype(np.uint8)
