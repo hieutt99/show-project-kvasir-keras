@@ -134,8 +134,6 @@ def SUNet(image_size = (256,256,3), name = "SUNet model"):
 	l1 = unet_module(X_input, 16, 16,0)
 	l1 = unet_module(l1, 16, 16,0)
 	l1 = unet_module(l1, 16, 16,0)
-	l1 = unet_module(l1, 16, 16,0)
-	l1 = unet_module(l1, 16, 16,0)
 
 	l2 = unet_module(l1, 16, 16, 1)
 	l3 = unet_module(l2, 16, 16, 2)
