@@ -30,6 +30,14 @@ def model_evaluate(model, train_generator, val_generator, test_generator, \
 		print('%-20s: |   %.4f' %('F1 Score', f1(res[10],res[11],res[12])))
 		print('%-20s: |   %.4f' %('IOU', mean_iou(res[10],res[11],res[12])))
 
+		
+		print('%-20s: |   %.4f' %('F1 Score out_2', f1(res[19],res[20],res[21])))
+		print('%-20s: |   %.4f' %('IOU out_2', mean_iou(res[19],res[20],res[21])))
+
+		print('%-20s: |   %.4f' %('F1 Score out_1', f1(res[28],res[29],res[30])))
+		print('%-20s: |   %.4f' %('IOU out_1', mean_iou(res[28],res[29],res[30])))
+
+
 	print('\n-------------On Validation Set----------------------\n')
 	res = model.evaluate(val_generator, steps = np.floor(val_size/batch_size), verbose = 1)
 	print('________________________')
@@ -40,6 +48,14 @@ def model_evaluate(model, train_generator, val_generator, test_generator, \
 	print('%-20s: |   %.4f' %('F1 Score', f1(res[10],res[11],res[12])))
 	print('%-20s: |   %.4f' %('IOU', mean_iou(res[10],res[11],res[12])))
 
+	
+	print('%-20s: |   %.4f' %('F1 Score out_2', f1(res[19],res[20],res[21])))
+	print('%-20s: |   %.4f' %('IOU out_2', mean_iou(res[19],res[20],res[21])))
+
+	print('%-20s: |   %.4f' %('F1 Score out_1', f1(res[28],res[29],res[30])))
+	print('%-20s: |   %.4f' %('IOU out_1', mean_iou(res[28],res[29],res[30])))
+
+
 	print('\n-------------On Test  Set--------------------------\n')
 	res = model.evaluate(test_generator, steps = np.floor(test_size/batch_size), verbose = 1)
 	print('________________________')
@@ -49,6 +65,13 @@ def model_evaluate(model, train_generator, val_generator, test_generator, \
 	# print('%-20s: |   %.4f' %('IOU', mean_iou(res[7],res[8],res[9])))
 	print('%-20s: |   %.4f' %('F1 Score', f1(res[10],res[11],res[12])))
 	print('%-20s: |   %.4f' %('IOU', mean_iou(res[10],res[11],res[12])))
+
+	
+	print('%-20s: |   %.4f' %('F1 Score out_2', f1(res[19],res[20],res[21])))
+	print('%-20s: |   %.4f' %('IOU out_2', mean_iou(res[19],res[20],res[21])))
+
+	print('%-20s: |   %.4f' %('F1 Score out_1', f1(res[28],res[29],res[30])))
+	print('%-20s: |   %.4f' %('IOU out_1', mean_iou(res[28],res[29],res[30])))
 
 
 def testSetReveal(model, test_generator):
@@ -72,8 +95,14 @@ def testSetReveal(model, test_generator):
 		print('%-20s: |   %.4f' %(metric,res[i]))
 	# print('%-20s: |   %.4f' %('F1 Score', f1(res[7],res[8],res[9])))
 	# print('%-20s: |   %.4f' %('IOU', mean_iou(res[7],res[8],res[9])))
-	print('%-20s: |   %.4f' %('F1 Score', f1(res[10],res[11],res[12])))
-	print('%-20s: |   %.4f' %('IOU', mean_iou(res[10],res[11],res[12])))
+	print('%-20s: |   %.4f' %('F1 Score X_output', f1(res[10],res[11],res[12])))
+	print('%-20s: |   %.4f' %('IOU X_output', mean_iou(res[10],res[11],res[12])))
+
+	print('%-20s: |   %.4f' %('F1 Score out_2', f1(res[19],res[20],res[21])))
+	print('%-20s: |   %.4f' %('IOU out_2', mean_iou(res[19],res[20],res[21])))
+
+	print('%-20s: |   %.4f' %('F1 Score out_1', f1(res[28],res[29],res[30])))
+	print('%-20s: |   %.4f' %('IOU out_1', mean_iou(res[28],res[29],res[30])))
 
 	plt.subplot(1,3,1)
 	plt.imshow(test_x[0])
