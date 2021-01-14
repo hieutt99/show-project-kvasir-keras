@@ -2,5 +2,5 @@ train/
 val/
 test/
 output_images/
-.vscode/
 model/
+
