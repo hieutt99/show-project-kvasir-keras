@@ -1,6 +1,6 @@
-/train/
-/val/
-/test/
-/output_images/
-/model/
-/.vscode/
+/train
+/val
+/test
+/output_images
+/model
+/.vscode
