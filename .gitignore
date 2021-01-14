@@ -1,1 +1,6 @@
-train.py
+train/
+val/
+test/
+output_images/
+model/
+.vscode/
